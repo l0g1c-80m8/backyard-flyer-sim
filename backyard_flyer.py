@@ -30,7 +30,7 @@ class BackyardFlyer(Drone):
         # initial state
         self.flight_state = States.MANUAL
 
-        # TODO: Register all your callbacks here
+        # Register all your callbacks here
         self.register_callback(MsgID.LOCAL_POSITION, self.local_position_callback)
         self.register_callback(MsgID.LOCAL_VELOCITY, self.velocity_callback)
         self.register_callback(MsgID.STATE, self.state_callback)

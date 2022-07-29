@@ -66,11 +66,14 @@ class BackyardFlyer(Drone):
 
     def velocity_callback(self):
         """
-        TODO: Implement this method
-
         This triggers when `MsgID.LOCAL_VELOCITY` is received and self.local_velocity contains new data
         """
-        pass
+        if self.flight_state == States.LANDING:
+            # when landing has begun, and drone is near starting position, disarm
+            if self.global_position[2] - self.global_home[2] < 0.1:
+                # when drone is near the ground, disarm
+                if abs(self.local_position[2]) < 0.05:
+                    self.disarming_transition()
 
     def state_callback(self):
         """

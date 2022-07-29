@@ -60,11 +60,13 @@ class BackyardFlyer(Drone):
         pass
 
     def calculate_box(self):
-        """TODO: Fill out this method
-        
+        """
         1. Return waypoints to fly a box
         """
-        pass
+        altitude = 10.0
+        x_start, x_end = 0.0, 20.0
+        y_start, y_end = 0.0, 20.0
+        return [[x_end, y_start, altitude], [x_end, y_end, altitude], [x_start, y_end, altitude], [x_start, y_start, altitude]]
 
     def arming_transition(self):
         """TODO: Fill out this method

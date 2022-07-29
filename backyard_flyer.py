@@ -137,12 +137,16 @@ class BackyardFlyer(Drone):
         self.flight_state = States.TAKEOFF
 
     def waypoint_transition(self):
-        """TODO: Fill out this method
-    
+        """
         1. Command the next waypoint position
         2. Transition to WAYPOINT state
         """
-        print("waypoint transition")
+        # update target_position to next waypoint and remove it from waypoints to visit list
+        self.target_position = self.all_waypoints.pop(0)
+        print("waypoint transition", self.target_position)
+        # set new position to the updated target_position
+        self.cmd_position(self.target_position[0], self.target_position[1], self.target_position[2], 0.0)
+        self.flight_state = States.WAYPOINT
 
     def landing_transition(self):
         """

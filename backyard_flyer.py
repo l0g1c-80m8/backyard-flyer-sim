@@ -92,13 +92,19 @@ class BackyardFlyer(Drone):
         self.flight_state = States.ARMING
 
     def takeoff_transition(self):
-        """TODO: Fill out this method
-
+        """
         1. Set target_position altitude to 3.0m
         2. Command a takeoff to 3.0m
         3. Transition to the TAKEOFF state
         """
         print("takeoff transition")
+        target_altitude = self.flight_plan_coordinates()[4]
+        # set current altitude to target_altitude
+        self.target_position[2] = target_altitude
+        # takeoff and assume target_altitude
+        self.takeoff(target_altitude)
+        # Set state to takeoff
+        self.flight_state = States.TAKEOFF
 
     def waypoint_transition(self):
         """TODO: Fill out this method

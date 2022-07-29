@@ -93,7 +93,7 @@ class BackyardFlyer(Drone):
         1. Return relative coordinates in the format:
             [x_start, x_end, y_start, y_end, altitude]
         """
-        return [0.0, 20.0, 0.0, 20.0, 10.0]
+        return [0.0, 20.0, 0.0, 20.0, 3.0]
 
     def calculate_box(self):
         """

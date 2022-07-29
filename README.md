@@ -1,6 +1,9 @@
 # Backyard Flyer Drone Simulator
 In this project, I set up a state machine using event-driven programming to autonomously fly a quadcopter in Unity simulator.
 
+## Demo
+![](/assets/backyard-flyer-sim-demo-run.gif)
+
 ## Step 1: Download the Simulator
 Download the version of the simulator that's appropriate for your operating system [from this repository](https://github.com/udacity/FCND-Simulator-Releases/releases).
 

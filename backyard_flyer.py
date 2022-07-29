@@ -35,13 +35,34 @@ class BackyardFlyer(Drone):
         self.register_callback(MsgID.LOCAL_VELOCITY, self.velocity_callback)
         self.register_callback(MsgID.STATE, self.state_callback)
 
+    def is_within_acceptance(self, qty_1, qty_2, acceptance):
+        """
+        Check if qty_1 is within acceptance (percentage) of qty_2, return if true
+        """
+        return qty_1 > acceptance * qty_2
+
     def local_position_callback(self):
         """
-        TODO: Implement this method
-
         This triggers when `MsgID.LOCAL_POSITION` is received and self.local_position contains new data
         """
-        pass
+        if self.flight_state == States.TAKEOFF:
+            # during takeoff, reach target altitude first
+            # coordinate conversion
+            if self.is_within_acceptance(-1 * self.local_position[2], self.target_position[2], 0.95):
+                # if altitude is within 95% of target altitude, set waypoints and begin transition
+                self.all_waypoints = self.calculate_box()
+                self.waypoint_transition()
+        elif self.flight_state == States.WAYPOINT:
+            """
+            during mission, check if drone is within 95% of current waypoint,
+            if so, transition to next waypoint
+            """
+            if self.is_within_acceptance(-1 * self.local_position[0], self.target_position[0], 0.95) and self.is_within_acceptance(-1 * self.local_position[1], self.target_position[1], 0.95) and self.is_within_acceptance(-1 * self.local_position[2], self.target_position[2], 0.95):
+                # if there is a next waypoint, set it as target waypoint, else prepare for landing
+                if len(self.all_waypoints) > 0:
+                    self.waypoint_transition()
+                else:
+                    self.landing_transition()
 
     def velocity_callback(self):
         """

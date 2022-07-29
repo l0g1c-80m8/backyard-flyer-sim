@@ -115,20 +115,22 @@ class BackyardFlyer(Drone):
         print("waypoint transition")
 
     def landing_transition(self):
-        """TODO: Fill out this method
-        
+        """
         1. Command the drone to land
         2. Transition to the LANDING state
         """
         print("landing transition")
+        self.land()
+        self.flight_state = States.LANDING
 
     def disarming_transition(self):
-        """TODO: Fill out this method
-        
+        """
         1. Command the drone to disarm
         2. Transition to the DISARMING state
         """
         print("disarm transition")
+        self.disarm()
+        self.flight_state = States.DISARMING
 
     def manual_transition(self):
         """This method is provided

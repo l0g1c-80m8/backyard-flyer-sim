@@ -58,7 +58,9 @@ class BackyardFlyer(Drone):
                 # if there is a next waypoint, set it as target waypoint, else prepare for landing
                 if len(self.all_waypoints) > 0:
                     self.waypoint_transition()
-                else:
+                elif np.linalg.norm(self.local_velocity[0:2]) < 0.1:
+                    # wait for the drone to become stationary before commencing landing
+                    # else, landing takes place abruptly
                     self.landing_transition()
 
     def velocity_callback(self):
